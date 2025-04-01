@@ -5,9 +5,15 @@ def loss_custom(y_pred, y_real):
     #Ensuring np array:
     y_pred = np.array(y_pred)
     y_real = np.array(y_real)
+
+    # Vector of ponderation coefs to punish more errors at cases where there is an alarm
     ponderation = np.where(y_real >= 0.5, 1.2, 1.0)
+
+    # Applying ponderation and computing square root error
     sq_errs = ponderation * (y_pred-y_real)**2
     mean_samples = np.mean(sq_errs, axis=1)
     mean_all_sqrt = np.sqrt(np.mean(mean_samples))
     return mean_all_sqrt
+import numpy as np
+
 
